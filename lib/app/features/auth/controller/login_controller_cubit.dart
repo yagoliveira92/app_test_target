@@ -11,7 +11,7 @@ class LoginControllerCubit extends Cubit<LoginControllerState> {
   Future<void> login({required String user, required String password}) async {
     emit(LoginControllerLoading());
     final response = await loginRequest(user: user, password: password);
-    if (response.error) {
+    if (!response.error) {
       emit(
         LoginControllerSuccess(
           loginModel: response.loginModel,

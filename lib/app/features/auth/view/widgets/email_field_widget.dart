@@ -34,11 +34,20 @@ class _EmailTextFieldWidgetState extends State<EmailTextFieldWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Usuário'),
+        const Text(
+          'Usuário',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
+        ),
         TextFormField(
           onChanged: widget.validator,
           style: GoogleFonts.montserrat(),
           focusNode: focusNode,
+          maxLength: 20,
           key: _keyEmail,
           keyboardType: TextInputType.emailAddress,
           textCapitalization: TextCapitalization.none,
@@ -48,10 +57,12 @@ class _EmailTextFieldWidgetState extends State<EmailTextFieldWidget> {
           },
           controller: widget.controller,
           decoration: const InputDecoration(
-            prefix: Icon(Icons.person),
+            prefixIcon: Icon(Icons.person),
             focusedBorder: OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(),
             errorBorder: OutlineInputBorder(),
+            filled: true,
+            fillColor: Colors.white,
           ),
         ),
       ],

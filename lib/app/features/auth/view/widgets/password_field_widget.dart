@@ -1,5 +1,6 @@
 import 'package:app_test_target/app/common/validators/password_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PasswordTextFieldWidget extends StatefulWidget {
@@ -20,13 +21,6 @@ class PasswordTextFieldWidget extends StatefulWidget {
 class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
   FocusNode? focusNode;
   static final _keyPassword = GlobalKey();
-  bool _showPassword = true;
-
-  void changeShowPassword() {
-    setState(() {
-      _showPassword = !_showPassword;
-    });
-  }
 
   @override
   void initState() {
@@ -44,11 +38,17 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
       children: [
         const Text(
           'Senha',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(
+          height: 10.0,
         ),
         TextFormField(
           style: GoogleFonts.montserrat(),
           onChanged: widget.validator,
-          obscureText: _showPassword,
+          maxLength: 20,
           focusNode: focusNode,
           key: _keyPassword,
           keyboardType: TextInputType.visiblePassword,
@@ -56,12 +56,17 @@ class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
             final validate = PasswordValidator(value: value);
             return validate();
           },
+          inputFormatters: [
+            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+          ],
           controller: widget.controller,
           decoration: const InputDecoration(
             prefixIcon: Icon(Icons.lock),
             focusedBorder: OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(),
             errorBorder: OutlineInputBorder(),
+            filled: true,
+            fillColor: Colors.white,
           ),
         ),
       ],
