@@ -43,7 +43,7 @@ class LoginControllerCubit extends Cubit<LoginControllerState> {
       } else {
         return (loginModel: LoginModel(), error: true);
       }
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return (loginModel: LoginModel(), error: true);
     }
   }
